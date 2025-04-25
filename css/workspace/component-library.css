@@ -1,0 +1,26 @@
+body {
+  box-sizing: border-box;
+  height: 100vh;
+  padding: 10px;
+}
+
+.component-library {
+  height: 100%;
+  width: 300px;
+  overflow-y: auto;
+}
+
+.single-component-container {
+  width: 100%;
+  height: fit-content;
+  margin: auto;
+  border-radius: 10px;
+  border-radius: 10px;
+
+}
+
+.component-library .container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

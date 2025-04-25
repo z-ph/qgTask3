@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  box-sizing: border-box;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 20px;
+}
+
+.text-center {
+  text-align: center;
+}

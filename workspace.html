@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>workspace</title>
+  <link rel="stylesheet" href="css/layui.css">
+  <link rel="stylesheet" href="css/general.css">
+  <link rel="stylesheet" href="css/workspace/component-library.css">
+  <link rel="stylesheet" href="css/workspace/templates-library.css">
+  <link rel="stylesheet" href="css/workspace/nav.css">
+  <link rel="stylesheet" href="css/workspace/workspace.css">
+  <style>
+    .app {
+      display: flex;
+      gap: 10px;
+      width: calc(100% - 20px);
+      height: calc(100% - 20px);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .layui-btn+.layui-btn {
+      margin-left: 0 !important;
+    }
+
+    .container {
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <section class="nav card">
+      <h1>导航</h1>
+      <ul>
+        <!-- <li><a href="">首页</a></li> -->
+        <li><a href="personal.html">个人中心</a></li>
+      </ul>
+    </section>
+    <section class="component-library card">
+      <h1>组件库</h1>
+      <div class="container">
+
+      </div>
+    </section>
+    <section class="card current-template">
+      <h1>工作区</h1>
+      <div class="btn-container">
+        <button class="add-new-template layui-btn layui-btn-xs layui-btn-normal">新建空模板</button>
+        <button class="delete-current-template layui-btn layui-btn-xs layui-btn-normal ">删除当前模板</button>
+        <button class="save layui-btn layui-btn-normal layui-btn-xs ">保存全部</button>
+      </div>
+      <div class="container">
+
+      </div>
+    </section>
+    <section class="templates-libaray card">
+      <h1>我的模板库</h1>
+      <div class="container">
+
+      </div>
+    </section>
+  </div>
+  <script src="js/workspace/data.js"></script>
+  <script src="js/workspace/doms.js"></script>
+  <script src="js/workspace/component.js"></script>
+  <script src="js/workspace/drag.js"></script>
+  <script src="js/workspace/button.js"></script>
+  <script src="js/workspace/fetch.js"></script>
+</body>
+
+</html>

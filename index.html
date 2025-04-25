@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo</title>
+    <link rel="stylesheet" href="css/index.css/index.css">
+</head>
+
+<body>
+    <dialog class="login">
+        <form action="javascript:;" method="post">
+            <div class="input-container">
+                <input type="text" name="name" placeholder="用户名" required autocomplete="off">
+                <input type="password" name="password" placeholder="密码" required>
+            </div>
+            <div class="btn-container">
+                <input type="button" value="离线使用">
+                <input type="button" value="登录">
+                <input type="button" value="注册">
+                <input type="button" value="上次登录">
+            </div>
+        </form>
+
+    </dialog>
+    <script src="js/index/doms.js"></script>
+    <script src="js/index/btn.js"></script>
+    <script>
+        class Login {
+            constructor() {
+                this.dialog = document.querySelector('.login')
+            }
+            show() {
+                this.dialog.showModal()
+            }
+            close() {
+                this.dialog.close();
+            }
+        }
+        new Login().show()
+    </script>
+</body>
+
+</html>
