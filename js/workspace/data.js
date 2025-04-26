@@ -32,7 +32,8 @@ const componentList = [
         "label": "女"
       }
     ],
-    "disabled": true
+    "disabled": true,
+    width: 'auto'
   },
   {
     "id": 3,
@@ -66,7 +67,8 @@ const componentList = [
         "label": "看动漫"
       }
     ],
-    "disabled": true
+    "disabled": true,
+    width: 'auto'
   },
   {
     "id": 5,

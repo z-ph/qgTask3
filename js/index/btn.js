@@ -5,7 +5,7 @@ try {
   console.log(e);
   token = null;
 }
-const info = getFormData(form, '登录');
+// const info = getFormData(form, '登录');
 
 loginBtn.addEventListener('click', async () => {
   const postData = getFormData(form, '登录')
