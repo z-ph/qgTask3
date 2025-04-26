@@ -9,7 +9,7 @@ class Component {
     component.componentType === 'submitButton' && new SubmitButton(component).render(index, container)
     component.componentType === 'textarea' && new Textarea(component).render(index, container)
   }
-  constructor({ componentType, name, disabled = true, placeholder = '', options = [], width = 'auto', height = 'auto', borderRadius = '0' }) {
+  constructor({ componentType, name, disabled = true, placeholder = '', options = [], width = '80%', height = 'auto', borderRadius = '0' }) {
     this.componentType = componentType;
     this.name = name;
     this.disabled = disabled;
@@ -32,7 +32,7 @@ class Component {
   }
   createCard(id) {
     return (formElem, title = this.title) => `
-    <div data-id="${id}" draggable="true" class="single-component-container card" >
+    <div data-id="${id}" draggable="true" class="single-component-container card" style="overflow:auto;" >
       ${title}
       ${formElem}
     </div>
