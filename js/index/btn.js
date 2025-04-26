@@ -58,28 +58,32 @@ offlineBtn.addEventListener('click', () => {
 });
 
 async function tokenLogin(token) {
-  if (!token) {
-    alert('token失效，请重新登录');
-    return;
+  try {
+    if (!token) {
+      alert('token失效，请重新登录');
+      return;
+    }
+    const res = await fetch('http://localhost:3000/login/token', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token
+      }),
+      method: 'POST'
+    })
+    const body = await res.json();
+    if (body.code !== 200) {
+      localStorage.removeItem('token');
+      alert('token失效，请重新登录');
+      return;
+    }
+    localStorage.setItem('templatesList', JSON.stringify(body.data));
+    localStorage.setItem('token', JSON.stringify(body.token));
+    window.location.href = 'workspace.html';
+  } catch (err) {
+    console.log('无法访问服务器，检查网络或确保服务器是否正常')
   }
-  const res = await fetch('http://localhost:3000/login/token', {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      token
-    }),
-    method: 'POST'
-  })
-  const body = await res.json();
-  if (body.code !== 200) {
-    localStorage.removeItem('token');
-    alert('token失效，请重新登录');
-    return;
-  }
-  localStorage.setItem('templatesList', JSON.stringify(body.data));
-  localStorage.setItem('token', JSON.stringify(body.token));
-  window.location.href = 'workspace.html';
 }
 function getFormData(form, action) {
   const infoElemList = form.querySelectorAll('[name]');
