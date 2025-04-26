@@ -9,12 +9,12 @@ doms.addNewTemplate.addEventListener('click', () => {
     components: []
   })
   //如果工作区模板有组件，并且为指向当前模板列表中的任意模板，则保存到新键的模板
-  if (currentTemplateIndex === undefined && currentTemplate.length > 0) {
-    templatesList.at(-1).components = currentTemplate;
+  if (template.index === undefined && template.template.length > 0) {
+    templatesList.at(-1).components = template.template;
   }
   //当前显示模板指向新建的模板，并渲染
-  currentTemplate = templatesList[templatesList.length - 1].components;
-  currentTemplateIndex = templatesList.length - 1;
+  template.template = templatesList[templatesList.length - 1].components;
+  template.index = templatesList.length - 1;
   renderTemplatesList();
   // 新建模板自动保存
   doms.save.click();
@@ -25,9 +25,9 @@ doms.addNewTemplate.addEventListener('click', () => {
 
 
 doms.deleteCurrentTemplate.addEventListener('click', e => {
-  //删除currentTemplateIndex指向的模板
-  if (currentTemplateIndex === undefined) return;
-  templatesList.splice(currentTemplateIndex, 1);
+  //删除template.index指向的模板
+  if (template.index === undefined) return;
+  templatesList.splice(template.index, 1);
   //设置保存状态
   savedProxy.value = false;
   //将id重新赋值
@@ -35,11 +35,11 @@ doms.deleteCurrentTemplate.addEventListener('click', e => {
     template.id = index;
   })
   currentTemplate = []
-  currentTemplateIndex = undefined;
+  template.index = undefined;
 
   // 重新渲染模板列表和当前模板
   renderTemplatesList();
-  renderCurrentTemplate();
+  template.render();
 
   // 模拟用户点击最后一个模板
   const liNodeList = doms.templatesLibraryContainer.querySelectorAll('li');
@@ -51,6 +51,6 @@ doms.save.addEventListener('click', e => {
   saveTemplateList()
 })
 // doms.saveToSelectedTemplate.addEventListener('click', e => {
-//   if (currentTemplateIndex === null) return;
-//   templatesList[currentTemplateIndex].components = currentTemplate;
+//   if (template.index === null) return;
+//   templatesList[template.index].components = currentTemplate;
 // })

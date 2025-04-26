@@ -1,9 +1,11 @@
 // 业务逻辑的主要数据
-let currentTemplate = []
-let currentTemplateIndex = undefined
+const template = new CurrentTemplate()
+
 let saved = true;
-let draggingItem = null
-//后续将localStorag改成向发送数据库get请求
+const savedProxy = listen(saved, () => {
+  changeSaveButtonStatus(savedProxy.value);
+})
+//网络请求结果保存到localStorage中
 const templatesList = localStorage.getItem('templatesList') ? JSON.parse(localStorage.getItem('templatesList')) : []
 const componentList = [
   {
@@ -107,6 +109,6 @@ function listen(data, fn) {
     }
   })
 }
-const savedProxy = listen(saved, () => {
-  changeSaveButtonStatus(savedProxy.value);
-})
+renderTemplatesList();
+
+

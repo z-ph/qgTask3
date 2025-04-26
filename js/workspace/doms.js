@@ -2,19 +2,14 @@
 const doms = {}
 doms.componentLibrary = document.querySelector('.component-library')
 doms.componentLibraryContainer = document.querySelector('.component-library .container')
-
 doms.templatesLibraryContainer = document.querySelector('.templates-libaray')
 doms.templatesLibraryContainer = document.querySelector('.templates-libaray .container')
 doms.currentTemplate = document.querySelector('.current-template')
 doms.currentTemplateContainer = document.querySelector('.current-template .container')
 doms.addNewTemplate = document.querySelector('.add-new-template')
-
 doms.deleteCurrentTemplate = document.querySelector('.delete-current-template')
-
 doms.save = document.querySelector('.save')
-// doms.saveToSelectedTemplate = document.querySelector('.save-to-selected-template')
 
-// doms.newTemplateToSave = document.querySelector('.new-template-to-save')
 //渲染模板列表
 function renderTemplatesList() {
   doms.templatesLibraryContainer.innerHTML = '';
@@ -25,29 +20,16 @@ function renderTemplatesList() {
     doms.templatesLibraryContainer.appendChild(li);
   })
 }
-renderTemplatesList();
-// 向当前模板添加组件
-function currentTemplatePushAndRender(component) {
-  // const copyComponent = JSON.parse(JSON.stringify(component));
-  const copyComponent = new Component(component)
-  copyComponent.id = currentTemplate.length;
-  currentTemplate.push(copyComponent);
-  renderCurrentTemplate();
-}
-// 渲染当前模板的组件
-function renderCurrentTemplate() {
-  doms.currentTemplateContainer.innerHTML = '';
-  currentTemplate.forEach((component, index) => {
-    Component.renderComponent(index, component, doms.currentTemplateContainer);
-  })
-}
+
 // 点击事件切换模板
 doms.templatesLibraryContainer.addEventListener('click', e => {
   if (e.target.tagName === 'LI') {
     const id = +e.target.getAttribute('data-id');
-    currentTemplateIndex = id;
-    currentTemplate = templatesList[id].components;
-    renderCurrentTemplate();
+    // currentTemplateIndex = id;
+    // currentTemplate = templatesList[id].components;
+    // renderCurrentTemplate();
+    template.setTemplate(templatesList[id].components, id);
+    template.render();
     doms.templatesLibraryContainer.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
     e.target.classList.add('selected');
   }
@@ -64,6 +46,7 @@ function changeSaveButtonStatus(savedStatus) {
     doms.save.innerHTML += haveNoSaved;
   }
 }
+// 单例类
 class MyDialog {
   constructor(data) {
     this.data = data;
@@ -100,3 +83,54 @@ class MyDialog {
     this.dialog.remove();
   }
 }
+class CurrentTemplate {
+  constructor(template = [], index = undefined) {
+    this.template = template
+    this.index = index
+    this.render()
+    this.draggingItem = null
+  }
+  setTemplate(template, index) {
+    this.template = template
+    this.index = index
+  }
+  render() {
+    doms.currentTemplateContainer.innerHTML = ''
+    this.template.forEach(component => {
+      Component.renderComponent(component.id, component, doms.currentTemplateContainer)
+    })
+  }
+  addComponent(component) {
+    if (!this.draggingItem || this.draggingItem.to !== doms.currentTemplate) return;
+    if (this.index === undefined) {
+      alert('请先创建或选中一个模板!');
+      return;
+    }
+    //创建新的component
+    const newComponent = new Component(component)
+    //设置id
+    newComponent.id = this.template.length
+    this.template.push(newComponent)
+    this.render()
+    //设置未保存状态
+    savedProxy.value = false;
+  }
+  removeComponent(index) {
+    if (!this.draggingItem || this.draggingItem.to !== doms.componentLibrary) return;
+
+    this.template.splice(index, 1)
+    //重置id
+    this.template.forEach((component, index) => {
+      component.id = index
+    })
+    //重新渲染
+    this.render()
+    //设置未保存状态
+    savedProxy.value = false;
+  }
+  getComponentIndex(component) {
+    return this.template.findIndex(item => item.id === component.id)
+  }
+}
+
+
