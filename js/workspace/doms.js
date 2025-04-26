@@ -1,3 +1,4 @@
+// 页面中的dom元素以及数据渲染dom元素的方法
 const doms = {}
 doms.componentLibrary = document.querySelector('.component-library')
 doms.componentLibraryContainer = document.querySelector('.component-library .container')
@@ -27,7 +28,8 @@ function renderTemplatesList() {
 renderTemplatesList();
 // 向当前模板添加组件
 function currentTemplatePushAndRender(component) {
-  const copyComponent = JSON.parse(JSON.stringify(component));
+  // const copyComponent = JSON.parse(JSON.stringify(component));
+  const copyComponent = new Component(component)
   copyComponent.id = currentTemplate.length;
   currentTemplate.push(copyComponent);
   renderCurrentTemplate();
@@ -39,6 +41,7 @@ function renderCurrentTemplate() {
     Component.renderComponent(index, component, doms.currentTemplateContainer);
   })
 }
+// 点击事件切换模板
 doms.templatesLibraryContainer.addEventListener('click', e => {
   if (e.target.tagName === 'LI') {
     const id = +e.target.getAttribute('data-id');
@@ -59,5 +62,41 @@ function changeSaveButtonStatus(savedStatus) {
     doms.save.innerHTML += haveSaved;
   } else {
     doms.save.innerHTML += haveNoSaved;
+  }
+}
+class MyDialog {
+  constructor(data) {
+    this.data = data;
+    this.dialog = document.createElement('dialog');
+    this.dialog.innerHTML = `
+            <div class="input-container">
+            <p><span>宽度:</span><input type="text" name="width"   autocomplete="off" value="${this.data.width}"></p>
+            <p><span>高度:</span><input type="text" name="height"  autocomplete="off" value="${this.data.height}"></p>
+            <p><span>圆角:</span><input type="text" name="borderRadius"  autocomplete="off" value="${this.data.borderRadius}"></p>
+            </div>
+            <button class="comfirm">确定</button>
+            <button class="cancel">取消</button>
+    `
+    this.dialog.querySelector('.comfirm').addEventListener('click', () => {
+      this.data.width = this.dialog.querySelector('input[name="width"]').value;
+      this.data.height = this.dialog.querySelector('input[name="height"]').value;
+      this.data.borderRadius = this.dialog.querySelector('input[name="borderRadius"]').value;
+      // 重新渲染
+      renderCurrentTemplate();
+      //设置未保存状态
+      savedProxy.value = false;
+      this.close();
+    })
+    this.dialog.querySelector('.cancel').addEventListener('click', () => {
+      this.close();
+    })
+  }
+  showModal() {
+    document.body.appendChild(this.dialog);
+    this.dialog.showModal();
+  }
+  close() {
+    this.dialog.close();
+    this.dialog.remove();
   }
 }

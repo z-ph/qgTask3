@@ -1,4 +1,4 @@
-
+//拖拽事件
 doms.currentTemplate.addEventListener('dragover', e => {
   e.preventDefault();
 })

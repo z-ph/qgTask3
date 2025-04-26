@@ -1,3 +1,4 @@
+//按钮事件
 doms.addNewTemplate.addEventListener('click', () => {
   // 添加数据到模板列表
   const name = prompt('请输入模板名称');

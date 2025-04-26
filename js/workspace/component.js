@@ -1,3 +1,4 @@
+//组件类的创建与继承
 class Component {
   static renderComponent(index, component, container) {
     component.componentType === 'input' && new Input(component).render(index, container)
@@ -24,6 +25,7 @@ class Component {
     }
     const component = this.createCard(id)(this.formElem);
     container.innerHTML += component;
+    return true;
   }
   get title() {
     return `<h1 class="title">${this.name}</h1>`

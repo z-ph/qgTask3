@@ -1,10 +1,86 @@
+// 业务逻辑的主要数据
 let currentTemplate = []
 let currentTemplateIndex = undefined
 let saved = true;
 let draggingItem = null
 //后续将localStorag改成向发送数据库get请求
 const templatesList = localStorage.getItem('templatesList') ? JSON.parse(localStorage.getItem('templatesList')) : []
-const componentList = localStorage.getItem('componentList') ? JSON.parse(localStorage.getItem('componentList')) : []
+const componentList = [
+  {
+    "id": 0,
+    "componentType": "input",
+    "name": "姓名",
+    "placeholder": "请输入姓名",
+    "disabled": true
+  },
+  {
+    "id": 1,
+    "componentType": "textarea",
+    "name": "自我介绍",
+    "placeholder": "请输入自我介绍",
+    "disabled": true
+  },
+  {
+    "id": 2,
+    "componentType": "radio",
+    "name": "性别",
+    "options": [
+      {
+        "label": "男"
+      },
+      {
+        "label": "女"
+      }
+    ],
+    "disabled": true
+  },
+  {
+    "id": 3,
+    "componentType": "select",
+    "name": "爱好",
+    "options": [
+      {
+        "label": "打篮球"
+      },
+      {
+        "label": "打足球"
+      },
+      {
+        "label": "打排球"
+      }
+    ],
+    "disabled": true
+  },
+  {
+    "id": 4,
+    "componentType": "checkbox",
+    "name": "爱好",
+    "options": [
+      {
+        "label": "打球"
+      },
+      {
+        "label": "看电影"
+      },
+      {
+        "label": "看动漫"
+      }
+    ],
+    "disabled": true
+  },
+  {
+    "id": 5,
+    "componentType": "date",
+    "name": "出生日期",
+    "disabled": true
+  },
+  {
+    "id": 6,
+    "componentType": "submitButton",
+    "name": "提交",
+    "disabled": true
+  }
+]
 
 function listen(data, fn) {
   //判断是否是原始类型
