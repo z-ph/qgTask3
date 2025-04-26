@@ -1,10 +1,10 @@
+let token;
 try {
-  const token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null;
+  token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : null;
 } catch (e) {
   console.log(e);
-  token = undefined;
+  token = null;
 }
-
 const info = getFormData(form, '登录');
 
 loginBtn.addEventListener('click', async () => {
